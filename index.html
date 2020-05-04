@@ -10,6 +10,7 @@
     <!-- Load Bulma from CDN (consider saving it to repository instead) -->
     <!-- https://bulma.io/ -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <link rel="stylesheet" href="style.css">
 
     <!-- Load Font Awesome 5 (free) icons -->
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
@@ -19,11 +20,11 @@
 
   <!-- Page header -->
   <!-- https://bulma.io/documentation/layout/hero/ -->
-  <section class="hero is-primary is-bold">
+  <section class="hero is-primary is-bold" id="header">
     <div class="hero-body">
       <div class="container">
         <!-- TODO: Change title -->
-        <h1 class="title">Home Page</h1>
+        <h1 style="font-size:90px" class="title">Welcome to Paul's final project</h1>
         <!-- TODO: Change subtitle -->
         <!-- <h2 class="subtitle">Website Subtitle</h2> -->
       </div>
@@ -38,16 +39,16 @@
       <div class="navbar-brand">
         <!-- TODO: Change link to repository homepage if needed -->
         <!-- TODO: Change which navbar-item is-active if needed -->
-        <a class="navbar-item is-active" href="index.html">
+        <a class="navbar-item" href="index.html">
           <span class="icon"><i class="fas fa-home"></i></span>
           <span>Home</span>
         </a>
 
-        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="main-menu">
+        <!-- <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="main-menu">
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
-        </a>
+        </a> -->
       </div>
 
       <div id="main-menu" class="navbar-menu has-text-weight-medium">
@@ -57,15 +58,19 @@
             <span class="icon"><i class="fas fa-table"></i></span>
             <span>Data Set</span>
           </a>
+          <a class="navbar-item" href="D3.html" title="Data">
+            <span class="icon"><i class="fas fa-file"></i></span>
+            <span>D3</span>
+          </a>
 
           <!-- TODO: Modify or remove dropdown -->
-          <a class="navbar-item" href="AboutPage.html" title="Data">
-            <!-- <span class="icon"><i class="fas fa-table"></i></span> -->
-            <span>About Page</span>
-          </a>
           <a class="navbar-item" href="Prototype.html" title="Data">
-            <!-- <span class="icon"><i class="fas fa-table"></i></span> -->
+            <span class="icon"><i class="fas fa-palette"></i></span>
              <span>Prototype</span>
+           </a>
+           <a class="navbar-item" href="AboutPage.html" title="Data">
+             <span class="icon"><i class="fas fa-file"></i></span>
+             <span>About Page</span>
            </a>
         </div>
 
@@ -87,14 +92,15 @@
   </nav>
   <!-- End page navigation -->
 
-  <section class="section">
+  <section class="section" id="Introduction">
     <div class="container">
       <!-- Begin page content -->
-      <div class="content">
+      <div class="content"  style='background-image:SFPD.jpg'>
 
-        <h1> Welcome to Paul's final project</h1>
+        <!-- <h1> Welcome to Paul's final project</h1> -->
         <section>
-        <h2>Introduction </h2>
+        <h1>Introduction </h1>
+        <p>San Francisco, in the US state of California, has both major, well-known neighborhoods and districts as well as smaller, specific subsections and developments. While there is considerable fluidity among the sources, one guidebook identifies five major districts, corresponding to the four quadrants plus a south central district.[1] These five broad districts, counterclockwise are: Central/downtown, Richmond, Sunset, Upper Market and beyond (south central) and Bernal Heights/Bayview and beyond (southeast). Within each of these five districts are located major neighborhoods, and again there is considerable fluidity seen in the sources. The San Francisco Planning Department officially identifies 36 neighborhoods. Within these 36 official neighborhoods are a large number of minor districts, some of which are historical, and some of which are overlapping.</p>
         <p>In this project, I am going to discover the safety factor of each commmunity in San Francisco in 2018.</p>
         <p>The data in this project is from Police Department of San Francisco, you are going to see the number of incidents of each community from D3 diagrams and then you could find out how safety for each community
         </section>

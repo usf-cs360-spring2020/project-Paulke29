@@ -10,7 +10,7 @@
     <!-- Load Bulma from CDN (consider saving it to repository instead) -->
     <!-- https://bulma.io/ -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
-
+    <link rel="stylesheet" href="Prototype.css">
     <!-- Load Font Awesome 5 (free) icons -->
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
   </head>
@@ -19,11 +19,11 @@
 
   <!-- Page header -->
   <!-- https://bulma.io/documentation/layout/hero/ -->
-  <section class="hero is-primary is-bold">
+  <section class="hero is-primary is-bold" id="header">
     <div class="hero-body">
       <div class="container">
         <!-- TODO: Change title -->
-        <h1 class="title">Prototype</h1>
+        <!-- <h1 class="title">Prototype</h1> -->
         <!-- TODO: Change subtitle -->
         <!-- <h2 class="subtitle">Website Subtitle</h2> -->
       </div>
@@ -38,16 +38,16 @@
       <div class="navbar-brand">
         <!-- TODO: Change link to repository homepage if needed -->
         <!-- TODO: Change which navbar-item is-active if needed -->
-        <a class="navbar-item is-active" href="index.html">
+        <a class="navbar-item" href="index.html">
           <span class="icon"><i class="fas fa-home"></i></span>
           <span>Home</span>
         </a>
 
-        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="main-menu">
+        <!-- <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="main-menu">
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
-        </a>
+        </a> -->
       </div>
 
       <div id="main-menu" class="navbar-menu has-text-weight-medium">
@@ -57,16 +57,20 @@
             <span class="icon"><i class="fas fa-table"></i></span>
             <span>Data Set</span>
           </a>
-
-          <a class="navbar-item" href="AboutPage.html" title="Data">
-            <span class="icon"><i class="fas fa-table"></i></span>
-            <span>About Page</span>
+          <a class="navbar-item" href="D3.html" title="Data">
+            <span class="icon"><i class="fas fa-paint-brush"></i></span>
+            <span>D3</span>
           </a>
 
-
-           <!-- <a class="navbar-item" href="DataSet.html" title="Data">
-            <span>Data Set</span>
-          </a> -->
+          <!-- TODO: Modify or remove dropdown -->
+          <!-- <a class="navbar-item" href="Prototype.html" title="Data">
+            <span class="icon"><i class="fas fa-palette"></i></span>
+             <span>Prototype</span>
+           </a> -->
+           <a class="navbar-item" href="AboutPage.html" title="Data">
+             <span class="icon"><i class="fas fa-file"></i></span>
+             <span>About Page</span>
+           </a>
         </div>
 
         <!-- Right navbar items -->
