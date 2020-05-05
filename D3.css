@@ -8,3 +8,53 @@ h1 {
 #Introduction{
   background-color: AntiqueWhite;
 }
+#tooltip {
+  font-weight: 600;
+  text-shadow: 0px 0px 2px white;
+
+  fill: black;
+  stroke: none;
+}
+
+path.land {
+  fill: #dddddd;
+  stroke: none;
+}
+
+path.neighborhood {
+  fill: none;
+  stroke: white;
+  stroke-width: 3.5px;
+  pointer-events: none;
+}
+
+path.street {
+  fill: none;
+  stroke: white;
+  stroke-width: 1px;
+  pointer-events: none;
+}
+
+.active {
+  stroke: red !important;
+  stroke-width: 1.5px !important;
+}
+
+circle.symbol {
+  fill-opacity: 0.6;
+
+  stroke: white;
+  stroke-width: -3.80000000000005px;
+}
+
+a:link, a:visited {
+  color: #444444;
+}
+
+a:hover, a:active {
+  color: blue;
+}
+
+th {
+  text-align: right;
+}

@@ -11,6 +11,7 @@
     <!-- https://bulma.io/ -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
     <link rel="stylesheet" href="D3.css">
+     <script src="https://d3js.org/d3.v5.min.js"></script>
 
     <!-- Load Font Awesome 5 (free) icons -->
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
@@ -95,10 +96,22 @@
 
         <!-- <h1> Welcome to Paul's final project</h1> -->
         <section>
-        <h1>Introduction </h1>
-        <p>San Francisco, in the US state of California, has both major, well-known neighborhoods and districts as well as smaller, specific subsections and developments. While there is considerable fluidity among the sources, one guidebook identifies five major districts, corresponding to the four quadrants plus a south central district.[1] These five broad districts, counterclockwise are: Central/downtown, Richmond, Sunset, Upper Market and beyond (south central) and Bernal Heights/Bayview and beyond (southeast). Within each of these five districts are located major neighborhoods, and again there is considerable fluidity seen in the sources. The San Francisco Planning Department officially identifies 36 neighborhoods. Within these 36 official neighborhoods are a large number of minor districts, some of which are historical, and some of which are overlapping.</p>
-        <p>In this project, I am going to discover the safety factor of each commmunity in San Francisco in 2018.</p>
-        <p>The data in this project is from Police Department of San Francisco, you are going to see the number of incidents of each community from D3 diagrams and then you could find out how safety for each community
+          <svg width="960" height="600" id="vis">
+                <g id="basemap"></g>
+                <!-- turn off pointer events for certain groups -->
+                <g id="streets" pointer-events="none"></g>
+                <g id="outline" pointer-events="none"></g>
+
+                <g id="Report"></g>
+                <g id="tooltip" width="180px" pointer-events="none"></g>
+                <g id="details" pointer-events="none"></g>
+          </svg>
+          <div>
+             <input type="radio" name="gender" value="Presido" onClick="raising(this.value)">Presido<br>
+             <input type="radio" name="gender" value="Seacliff" onClick="raising(this.value)">Seacliff<br>
+             <input type="radio" name="gender" value="Lincoln Park" onClick="raising(this.value)">Lincoln Park<br>
+           </div>
+          <script src="D3.js"></script>
         </section>
 
         <!-- End profile box -->
