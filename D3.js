@@ -21,21 +21,89 @@ tip.attr("dx", -5);
 tip.attr("dy", -5);
 tip.style("visibility", "hidden");
 
-// add details widget
-// https://bl.ocks.org/mbostock/1424037
-// const details = g.details.append("foreignObject")
-//   .attr("id", "details")
-//   .attr("width", 960)
-//   .attr("height", 600)
-//   .attr("x", 0)
-//   .attr("y", 0);
-//
-// const body = details.append("xhtml:body")
-//   .style("text-align", "left")
-//   .style("background", "none")
-//   .html("<p>N/A</p>");
-//
-// details.style("visibility", "hidden");
+var margin = {top: 30, right: 30, bottom: 30, left: 30},
+  width = 1100
+  height =600;
+
+// append the svg object to the body of the page
+var svg2 = d3.select("#my_dataviz")
+.append("svg")
+  .attr("width", width )
+  .attr("height", height)
+.append("g")
+  .attr("transform",
+        "translate(" + margin.left + "," + margin.top + ")");
+
+// Labels of row and columns
+var myGroups = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+var myVars = ["Assault", "Fraud", "Robbery", "Stolen Property", "Suspicious"].reverse()
+
+// Build X scales and axis:
+var x = d3.scaleBand()
+  .range([ 0, width-100])
+  .domain(myGroups)
+  .padding(0.01);
+svg2.append("g")
+  .attr("transform", "translate("+10+"0)")
+  .call(d3.axisTop(x))
+
+// Build X scales and axis:
+var y = d3.scaleBand()
+  .range([ height, 0 ])
+  .domain(myVars)
+  .padding(0.01);
+svg2.append("g")
+  .attr("transform", "translate("+10+"0)")
+  .call(d3.axisLeft(y));
+
+  // Build color scale
+var myColor = d3.scaleLinear()
+    .range(["white", "red"])
+    .domain([1,700])
+let csv = "FinalData.csv";
+function DefaultChart(data){
+  const result = [];
+  var events;
+  var category;
+  var day;
+  for(var i = 0; i < data.length; i++){
+    category = data[i].IncidentCategory;
+    day = data[i].IncidentDay;
+    // console.log("category: "+ category);
+    // console.log("day: "+ day);
+    if(result.find(post => post.group === day && post.variable == category)){
+      objIndex = result.findIndex(post => post.group === day && post.variable == category);
+      var values = result[objIndex].value
+      result[objIndex].value = values +1;
+      // console.log(")))")
+
+    }
+    else{
+      events = new Object();
+      events.group = day;
+      events.variable = category;
+      events.value =1;
+      result.push(events);
+    }
+  }
+  return result;
+}
+d3.csv(csv).then(drawHeatMap)
+function drawHeatMap(data) {
+    const groupData = DefaultChart(data);
+    console.log("Goup: "+JSON.stringify(groupData))
+    svg2.selectAll()
+        .data(groupData, function(d) {return d.group+':'+d.variable;})
+        .enter()
+        .append("rect")
+        .attr("x", function(d) { return x(d.group) })
+        .attr("y", function(d) { return y(d.variable) })
+        .attr("transform", "translate("+10+"0)")
+        .attr("width", x.bandwidth() )
+        .attr("height", y.bandwidth() )
+        .style("fill", function(d) { return myColor(d.value)} )
+
+  }
 
 // setup projection
 // https://github.com/d3/d3-geo#geoConicEqualArea

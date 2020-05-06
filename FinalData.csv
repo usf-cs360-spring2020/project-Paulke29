@@ -1,4 +1,4 @@
-Incident Category,Incident Day of Week,Incident Year,Analysis Neighborhood,Longitude,Latitude,Report Type Description
+IncidentCategory,IncidentDay,Incident Year,Neighborhood,Longitude,Latitude,Report Type Description
 Fraud,Saturday,2018,Pacific Heighs,-122.4301684,37.78744082,Initial
 Robbery,Friday,2018,Excelsior,-122.4312826,37.70964139,Initial
 Assault,Sunday,2018,Outer Mission,-122.4576703,37.70953989,Initial
