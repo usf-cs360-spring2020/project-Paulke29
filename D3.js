@@ -34,27 +34,58 @@ var svg2 = d3.select("#my_dataviz")
   .attr("transform",
         "translate(" + margin.left + "," + margin.top + ")");
 
+var chart2 = d3.select("body").select("svg#vis")
+  .append("svg")
+  .attr("id","chart2")
+  .attr("width", width )
+  .attr("height", height)
+  .append("g")
+  .attr("transform","translate(" + margin.left + "," + margin.top + ")");
+
+
 // Labels of row and columns
 var myGroups = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 var myVars = ["Assault", "Fraud", "Robbery", "Stolen Property", "Suspicious"].reverse()
 
 // Build X scales and axis:
 var x = d3.scaleBand()
-  .range([ 0, width-100])
+  .range([ 0, width/1.5])
   .domain(myGroups)
   .padding(0.01);
 svg2.append("g")
+  .attr("id","axiX")
   .attr("transform", "translate("+10+"0)")
   .call(d3.axisTop(x))
 
 // Build X scales and axis:
 var y = d3.scaleBand()
-  .range([ height, 0 ])
+  .range([ height/4, 0 ])
   .domain(myVars)
   .padding(0.01);
 svg2.append("g")
+  .attr("id","axiY")
   .attr("transform", "translate("+10+"0)")
   .call(d3.axisLeft(y));
+
+
+  // var x2 = d3.scaleBand()
+  //   .range([ 0, 300])
+  //   .domain(myGroups)
+  //   .padding(0.01);
+  // chart2.append("g")
+  //   .attr("transform", "translate("+75+"0)")
+  //   // .attr("display","none")
+  //   .call(d3.axisTop(x2))
+  //
+  // // Build X scales and axis:
+  // var y2 = d3.scaleBand()
+  //   .range([ 200, 0 ])
+  //   .domain(myVars)
+  //   .padding(0.01);
+  // chart2.append("g")
+  //   .attr("transform", "translate("+75+"0)")
+  //   .call(d3.axisLeft(y2));
+
 
   // Build color scale
 var myColor = d3.scaleLinear()
@@ -153,9 +184,34 @@ function drawBasemap(json) {
   basemap.on("mouseover.highlight", function(d) {
     d3.select(d.properties.outline).raise();
     d3.select(d.properties.outline).classed("active", true);
+
+
+    var x2 = d3.scaleBand()
+      .range([ 0, 300])
+      .domain(myGroups)
+      .padding(0.01);
+    chart2.append("g")
+      .attr("id","axiX")
+      .attr("transform", "translate("+75+"0)")
+      // .attr("display","none")
+      .call(d3.axisTop(x2))
+
+    // Build X scales and axis:
+    var y2 = d3.scaleBand()
+      .range([ 200, 0 ])
+      .domain(myVars)
+      .padding(0.01);
+    chart2.append("g")
+      .attr("id","axiY")
+      .attr("transform", "translate("+75+"0)")
+      .call(d3.axisLeft(y2));
+
   })
   .on("mouseout.highlight", function(d) {
     d3.select(d.properties.outline).classed("active", false);
+    d3.select("#chart2").selectAll("#axiY").remove();
+      d3.select("#chart2").selectAll("#axiX").remove();
+
   });
 
   // add tooltip
