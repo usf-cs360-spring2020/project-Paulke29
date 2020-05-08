@@ -123,7 +123,7 @@ function DefaultChart(data){
   }
   return result;
 }
-function Ncharts(data,name){
+function Ncharts(data,name,newGroup){
   const result = [];
   var events;
   var category;
@@ -149,6 +149,7 @@ function Ncharts(data,name){
         events.variable = category;
         events.value =1;
         result.push(events);
+        newGroup.push(category)
       }
     }
   }
@@ -249,7 +250,8 @@ function drawBasemap(json) {
     const name = d.properties.nhood;
     console.log("Name: "+name);
     d3.csv(csv).then(function(data){
-      const groupData = Ncharts(data,name);
+      var newGroup =[];
+      const groupData = Ncharts(data,name,newGroup);
       console.log("Goup2: "+JSON.stringify(groupData))
     var x2 = d3.scaleBand()
       .range([ 0, 300])
@@ -263,7 +265,7 @@ function drawBasemap(json) {
     // Build X scales and axis:
     var y2 = d3.scaleBand()
       .range([ 200, 0 ])
-      .domain(myVars)
+      .domain(newGroup)
       .padding(0.01);
     chart2.append("g")
       .attr("transform", "translate("+75+"0)")
