@@ -66,9 +66,10 @@ svg2.append("g")
   .attr("id","axiY")
   .attr("transform", "translate("+10+"0)")
   .call(d3.axisLeft(y));
-
-
-  // var x2 = d3.scaleBand()
+   //
+   // var x2;
+   // var y2
+   // var x2 = d3.scaleBand()
   //   .range([ 0, 300])
   //   .domain(myGroups)
   //   .padding(0.01);
@@ -91,6 +92,9 @@ svg2.append("g")
 var myColor = d3.scaleLinear()
     .range(["white", "red"])
     .domain([1,700])
+var myColor2 = d3.scaleLinear()
+    .range(["white", "red"])
+    .domain([1,100])
 let csv = "FinalData.csv";
 function DefaultChart(data){
   const result = [];
@@ -119,6 +123,37 @@ function DefaultChart(data){
   }
   return result;
 }
+function Ncharts(data,name){
+  const result = [];
+  var events;
+  var category;
+  var day;
+  var community;
+  for(var i = 0; i < data.length; i++){
+    category = data[i].IncidentCategory;
+    day = data[i].IncidentDay;
+    community = data[i].Neighborhood;
+    // console.log("category: "+ category);
+    // console.log("day: "+ day);
+    if(community == name){
+      if(result.find(post => post.group === day && post.variable == category)){
+        objIndex = result.findIndex(post => post.group === day && post.variable == category);
+        var values = result[objIndex].value
+        result[objIndex].value = values +1;
+        // console.log(")))")
+
+      }
+      else{
+        events = new Object();
+        events.group = day;
+        events.variable = category;
+        events.value =1;
+        result.push(events);
+      }
+    }
+  }
+  return result;
+}
 d3.csv(csv).then(drawHeatMap)
 function drawHeatMap(data) {
     const groupData = DefaultChart(data);
@@ -134,7 +169,21 @@ function drawHeatMap(data) {
         .attr("height", y.bandwidth() )
         .style("fill", function(d) { return myColor(d.value)} )
 
-  }
+ }
+ function drawNchart(data,Name){
+   const groupData = Ncharts(data,Name);
+   console.log("Goup2: "+JSON.stringify(groupData))
+   chart2.selectAll()
+       .data(groupData, function(d) {return d.group+':'+d.variable;})
+       .enter()
+       .append("rect")
+       .attr("x", function(d) { return x(d.group) })
+       .attr("y", function(d) { return y(d.variable) })
+       .attr("transform", "translate("+10+"0)")
+       .attr("width", x.bandwidth() )
+       .attr("height", y.bandwidth() )
+       .style("fill", function(d) { return myColor(d.value)} )
+ }
 
 // setup projection
 // https://github.com/d3/d3-geo#geoConicEqualArea
@@ -184,16 +233,31 @@ function drawBasemap(json) {
   basemap.on("mouseover.highlight", function(d) {
     d3.select(d.properties.outline).raise();
     d3.select(d.properties.outline).classed("active", true);
+  })
+  .on("mouseout.highlight", function(d) {
+    d3.select(d.properties.outline).classed("active", false);
+    d3.select("#chart2").selectAll("#axiY").remove();
+    d3.select("#chart2").selectAll("#axiX").remove();
+    d3.select("#chart2").selectAll("#map").remove();
 
+  });
 
+  // add tooltip
+  basemap.on("mouseover.tooltip", function(d) {
+    tip.text(d.properties.nhood);
+    tip.style("visibility", "visible");
+    const name = d.properties.nhood;
+    console.log("Name: "+name);
+    d3.csv(csv).then(function(data){
+      const groupData = Ncharts(data,name);
+      console.log("Goup2: "+JSON.stringify(groupData))
     var x2 = d3.scaleBand()
       .range([ 0, 300])
       .domain(myGroups)
       .padding(0.01);
     chart2.append("g")
-      .attr("id","axiX")
       .attr("transform", "translate("+75+"0)")
-      // .attr("display","none")
+      .attr("id","axiX")
       .call(d3.axisTop(x2))
 
     // Build X scales and axis:
@@ -202,22 +266,22 @@ function drawBasemap(json) {
       .domain(myVars)
       .padding(0.01);
     chart2.append("g")
-      .attr("id","axiY")
       .attr("transform", "translate("+75+"0)")
+      .attr("id","axiY")
       .call(d3.axisLeft(y2));
+    chart2.selectAll()
+          .data(groupData, function(d) {return d.group+':'+d.variable;})
+          .enter()
+          .append("rect")
+          .attr("x", function(d) { return x2(d.group) })
+          .attr("y", function(d) { return y2(d.variable) })
+          .attr("transform", "translate("+75+"0)")
+          .attr("width", x2.bandwidth())
+          .attr("height", y2.bandwidth() )
+          .attr("id","map")
+          .style("fill", function(d) { return myColor2(d.value)} )
+    });
 
-  })
-  .on("mouseout.highlight", function(d) {
-    d3.select(d.properties.outline).classed("active", false);
-    d3.select("#chart2").selectAll("#axiY").remove();
-      d3.select("#chart2").selectAll("#axiX").remove();
-
-  });
-
-  // add tooltip
-  basemap.on("mouseover.tooltip", function(d) {
-    tip.text(d.properties.nhood);
-    tip.style("visibility", "visible");
   })
   .on("mousemove.tooltip", function(d) {
     const coords = d3.mouse(g.basemap.node());
@@ -227,25 +291,4 @@ function drawBasemap(json) {
   .on("mouseout.tooltip", function(d) {
     tip.style("visibility", "hidden");
   });
-}
-
-function drawStreets(json) {
-  console.log("streets", json);
-
-  // only show active streets
-  const streets = json.features.filter(function(d) {
-    return d.properties.active;
-  });
-
-  console.log("removed", json.features.length - streets.length, "inactive streets");
-
-  g.streets.selectAll("path.street")
-    .data(streets)
-    .enter()
-    .append("path")
-    .attr("d", path)
-    .attr("class", "street");
-}
-function raising(data){
-
 }
