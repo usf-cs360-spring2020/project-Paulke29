@@ -3,10 +3,14 @@
    height: 450px;
 }
 h1 {
-  text-align: center;
+  text-align: left;
 }
 #Introduction{
   background-color: AntiqueWhite;
+}
+#legend{
+  position: center;
+  text-decoration-color: red;
 }
 #tooltip {
   font-weight: 600;

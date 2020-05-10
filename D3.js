@@ -315,6 +315,9 @@ function drawBasemap(json) {
       .attr("transform", "translate("+75+"0)")
       .attr("id","axiX")
       .call(d3.axisTop(x2))
+      .transition()
+            .delay(function (d) {return Math.random()*1000;})
+            .duration(1000)
 
     // Build X scales and axis:
     var y2 = d3.scaleBand()
@@ -324,7 +327,10 @@ function drawBasemap(json) {
     chart2.append("g")
       .attr("transform", "translate("+75+"0)")
       .attr("id","axiY")
-      .call(d3.axisLeft(y2));
+      .call(d3.axisLeft(y2))
+      .transition()
+      .delay(function (d) {return Math.random()*1000;})
+      .duration(1000)
     chart2.selectAll()
           .data(groupData, function(d) {return d.group+':'+d.variable;})
           .enter()
@@ -336,6 +342,9 @@ function drawBasemap(json) {
           .attr("height", y2.bandwidth() )
           .attr("id","map")
           .style("fill", function(d) { return myColor2(d.value)} )
+          .transition()
+            .delay(function (d) {return Math.random()*1000;})
+            .duration(1000)
     });
 
   })
