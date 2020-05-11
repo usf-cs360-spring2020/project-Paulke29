@@ -81,7 +81,7 @@ svg2.append("g")
   // Build color scale
 var myColor = d3.scaleLinear()
     .range(["white", "red"])
-    .domain([1,700])
+    .domain([1,900])
 var myColor2 = d3.scaleLinear()
     .range(["white", "red"])
     .domain([1,100])
@@ -182,9 +182,13 @@ function drawHeatMap(data) {
           .text('0')
           .attr('dx', -45)
           .attr('dy', 35);
+      const text = group.append('text')
+            .text('The number of incidents happened on each weekdays in 2018')
+            .attr('dx', -600)
+            .attr('dy', 35);
 
         const legendLabelMax = group.append('text')
-          .text('700')
+          .text('900')
           .attr('dx', 185)
           .attr('dy', 35);
 
